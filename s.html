@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+ 
+  <!-- добавим стили mocha для отображения результатов -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css">
+  <!-- добавляем сам фреймворк mocha -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
+  <script>
+    // включаем режим тестирования в стиле BDD
+    mocha.setup('bdd');
+  </script>
+  <!-- добавим chai -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.js"></script>
+  <script>
+    // chai предоставляет большое количество функций. Объявим assert глобально
+    let assert = chai.assert;
+  </script>
+  <title>Задача №1 для стажёра-автоматизатора</title>
+</head>
+<body style="padding:20px;">
+<br/>
+<h2 style="text-align:center;">Задача №1 для стажёра-автоматизатора</h2>
+<hr>
+
+<p style="text-align:center;"></p>
+<p id="demo"></p>
+
+<script>
+var ParamObj, i, j, k, l, x = "", ErrorObj;
+
+/*
+var client = new XMLHttpRequest();
+client.open('GET', 'https://raw.githubusercontent.com/avito-tech/qa-into-CoE-trainee-task/main/TestcaseStructure.json',false);
+client.send();  
+ParamObj = client.responseText;
+//ParamObj = JSON.stringify(ParamObj);
+ParamObj = JSON.parse(ParamObj);
+ 
+var client = new XMLHttpRequest();
+client.open('GET', 'https://raw.githubusercontent.com/avito-tech/qa-into-CoE-trainee-task/main/Values.json',false);
+client.send();  
+data = client.responseText;
+data = JSON.parse(data);
+
+//fetch API
+data = fetch("https://raw.githubusercontent.com/avito-tech/qa-into-CoE-trainee-task/main/Values.json")
+.then(response => {
+   return response.json();
+});
+ 
+ParamObj = fetch("https://raw.githubusercontent.com/avito-tech/qa-into-CoE-trainee-task/main/TestcaseStructure.json")
+.then(response => {
+   return response.json();
+});
+ 
+*/
+
+/* Node.js */
+/*
+//const data = require('Values.json');
+//ParamObj = require('TestcaseStructure.json');
+*/ 
+
+
+///*
+const data = {
+	"values": [{
+		"id": 34,
+		"value": 298 
+	}, {
+		"id": 146,
+		"value": "Валидация параметров на подаче объявления"
+	}, {
+		"id": 73,
+		"value": 345 //354the error!
+	}, {
+		"id": 230,
+		"value": 4931
+	}, {
+		"id": 122,
+		"value": 646
+	}, {
+		"id": 1373,
+		"value": 7204
+	}, {
+		"id": 421,
+		"value": 877
+	}, {
+		"id": 2128,
+		"value": 3627
+	}]
+};
+
+
+ParamObj = {
+	"params": [{
+		"id": 34,
+		"title": "testcaseId",
+		"value": "",
+	}, {
+		"id": 146,
+		"title": "Testcase name",
+		"value": "",
+	}, {
+		"id": 73,
+		"title": "unitId",
+		"value": "", //SellerX
+		"values": [{
+			"id": 345,
+			"title": "SellerX",
+			"params": [{
+				"id": 230,
+				"title": "Feature",
+				"value": "", //Publish item
+				"values": [{
+					"id": 4931,
+					"title": "Publish item",
+				}, {
+					"id": 4932,
+					"title": "Edit item",
+				}]
+			}]
+		}, {
+			"id": 346,
+			"title": "Trust&Safety",
+			"params": [ {
+				"id": 261,
+				"title": "Feature",
+				"value": "",//--
+				"values": [{
+					"id": 4894,
+					"title": "Authorize user",
+				}, {
+					"id": 4896,
+					"title": "Restore password",
+				}]
+			}]
+		}]
+	}, {
+		"id": 122,
+		"title": "Platform",
+		"value": "", //iOS
+		"values": [{
+			"id": 644,
+			"title": "Android",
+			"params": [{
+				"id": 1271,
+				"title": "Test type",
+				"value": "",
+				"values": [{
+					"id": 7197,
+					"title": "UI"
+				}, {
+					"id": 7199,
+					"title": "Business"
+				}]
+			}]
+			}, {
+			"id": 646,
+			"title": "iOS",
+			"params": [{
+				"id": 1373,
+				"title": "Test type",
+				"value": "", //Business
+				"values": [{
+					"id": 7201,
+					"title": "UI"
+				}, {
+					"id": 7204,
+					"title": "Business"
+				}]
+			}]
+		}]
+	}, {
+		"id": 421,
+		"title": "Priority",
+		"value": "", //High
+		"values": [{
+			"id": 877,
+			"title": "High"
+		}, {
+			"id": 879,
+			"title": "Low"
+		}]
+	}, {
+		"id": 2128,
+		"title": "Tags",
+		"value": "", //production
+		"values": [
+                   {"id": 3624,"title": "develop"},  
+                   {"id": 3627,"title": "production"}
+                  ]
+	}]
+}
+
+ErrorObj = {
+	"error": {
+		"msg": ""
+	}
+}; 
+//*/
+
+/*Gets an id from data json and returens the value*/ 
+
+function getValuesById(id) {
+ var getValuesByIdError = '';
+ if(!id || id.length === 0 || isNaN(id) || /^\s*$/.test(id)) return getValuesByIdError = undefined;
+ return data.values.filter(
+  function(data) {
+   return data.id == id
+  }
+ );
+}
+
+//var found = getValuesById(2128);
+//console.log(found[0].value);
+
+/*
+function download(content, fileName, contentType) {
+    var a = document.createElement("a");
+    var file = new Blob([content], {type: contentType});
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+}
+*/
+function download(data, filename, type) {
+    var file = new Blob([data], {type: type});
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
+}
+
+function hndlError(m1,m2){
+      fillValError = m1;
+      ErrorObj.error.msg = m2;
+      var errorData = JSON.stringify(ErrorObj);
+      download(errorData, 'Error.js', 'text/plain');
+      //console.log(ErrorObj.error.msg);
+}
+
+
+
+function fillWithValues() {
+
+var fillValError = "OK";
+for (i in ParamObj.params) {
+ x += "id = " + ParamObj.params[i].id + "</br>";
+
+// if no ParamObj.params[i].values
+  var found = getValuesById(ParamObj.params[i].id);
+  // If error..
+     if(!found || found.length < 0 || !found[0]) { 
+     hndlError("ID returned by getValuesById(ParamObj.params[i].id) not found in ParamObj!","Входные файлы некорректны");
+     }
+     
+     if(found[0].value && !ParamObj.params[i].values){
+        ParamObj.params[i].value = found[0].value;
+        x+= "  ParamObj.params[i].value= " +  ParamObj.params[i].value + "<br>";
+        }
+
+  for (j in ParamObj.params[i].values) {
+    var found = getValuesById(ParamObj.params[i].id);
+    if(found.length < 0) { 
+     hndlError("ID returned by getValuesById(ParamObj.params[i].id) not found in ParamObj!","Входные файлы некорректны");
+     }
+        if(found[0].value && ParamObj.params[i].values[j].id == found[0].value) {
+          ParamObj.params[i].value = ParamObj.params[i].values[j].title;
+          x+= "  ParamObj.params[i].value= " + ParamObj.params[i].value + "<br>";
+          }
+ 
+          for (k in ParamObj.params[i].values[j].params) {
+ 
+           var found = getValuesById(ParamObj.params[i].values[j].params[k].id);
+             // If error..
+             if(found.length < 0 ) { 
+             hndlError("ID returned by getValuesById(ParamObj.params[i].values[j].params[k].id) not found in ParamObj!","Входные файлы некорректны");
+           }
+     
+     
+           if(found.length > 0) {
+              //console.log(found);
+
+         // x +=" in k loop ParamObj.params[i].values[j].params[k].id = " + ParamObj.params[i].values[j].params[k].id + " valus id = " + data.values[i].id + " found[0].value = " + found[0].value + "<br/>";
+         
+          // If we found..
+             if (found[0].value){
+
+               for (l in ParamObj.params[i].values[j].params[k].values) {
+                 //  x +="ParamObj.params[i].values[j].params[k].values[l].id + "<br/>";
+                 
+                  // x += "ParamObj.params[i].values[j].params.id = " + ParamObj.params[i].values[j].params.id + "<br><hr>";
+                    if(ParamObj.params[i].values[j].params[k].values[l].id == found[0].value){
+
+                     ParamObj.params[i].values[j].params[k].value = ParamObj.params[i].values[j].params[k].values[l].title;
+               x += "ParamObj.params[i].values[j].params[k].value = " + ParamObj.params[i].values[j].params[k].value + "<br><hr>";
+                     }
+ 
+                  }
+                  
+               }
+              }  
+          }  
+    }
+}   
+ return fillValError;
+}
+
+fillWithValues();
+
+/* Printing the StructureWithValues.js */
+    
+var jsonData = JSON.stringify(ParamObj);
+
+
+/* Visual rep. */
+document.getElementById("demo").innerHTML = x;
+download(jsonData, 'StructureWithValues.js', 'text/plain');
+
+
+ 
+</script>
+<hr><h3 style="text-align:center;">Запускаем авто-тесты!</h3>
+  <!-- скрипт со спецификацией (describe, it...) -->
+  <script src="autotest.js"></script>
+
+  <!-- элемент с id="mocha" будет содержать результаты тестов -->
+  <div id="mocha"></div>
+
+  <!-- запускаем тесты! -->
+  <script>
+    mocha.run();
+  </script>
+  
+</body>
+</html>
